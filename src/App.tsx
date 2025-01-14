@@ -22,7 +22,7 @@ function App() {
           count is {count}
         </button>
         <p>
-          This is the <code>DEV</code> environment
+          This is the <code>TEST</code> environment
         </p>
       </div>
       <p className="read-the-docs">
