@@ -1,50 +1,22 @@
-# React + TypeScript + Vite
+# AWS Test App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Goal for this Repository
 
-Currently, two official plugins are available:
+I want a repository that centers around Amplify Gen 2 with additional functionality via CDK. This should be maintained and deployed via version control based on branch name.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Strategy
 
-## Expanding the ESLint configuration
+1. Primary development workflow should be done through Amplify first and CDK second.
+   1. Amplify **should** handle the deployments automatically.
+2. Variables should be handled as follows:
+   1. Environment variables should be defined within the CDK files directly.
+   2. Secrets should be managed by AWS Secrets Manager. Note: this may be altered later.
+   3. Configurations that should not prompt an environment rebuild (such as feature flags) should be managed by Aws AppConfig.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Making from scratch
 
-- Configure the top-level `parserOptions` property like this:
+1. `npm create vite@latest . -- --template react-ts && npm create amplify@latest`
+2. `git init && gh repo create && git add . && git commit -m "Init" && git push -u origin main`
+3. `git switch -c test && git push origin test && git switch -c dev && git push origin dev`
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+Go into Amplify console and connect the branches (main, then test, then dev). Ensure that they operate as expected by going to the ur;s after build.
